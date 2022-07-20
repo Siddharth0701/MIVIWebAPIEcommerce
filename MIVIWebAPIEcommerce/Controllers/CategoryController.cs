@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using MIVI.Data;
+using MIVI.Data.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,13 +12,19 @@ namespace MIVIWebAPIEcommerce.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+
     public class CategoryController : ControllerBase
     {
+        CategoryRepository repository = null;
+        public CategoryController( ApplicationDbContext context)
+        {
+            this.repository = new CategoryRepository(context);
+        }
         // GET: api/<CategoryController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IEnumerable<Category> Get()
         {
-            return new string[] { "value1", "value2" };
+            return repository.GetAllCategory();
         }
 
         // GET api/<CategoryController>/5
@@ -28,20 +36,25 @@ namespace MIVIWebAPIEcommerce.Controllers
 
         // POST api/<CategoryController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public IActionResult Post([FromBody] Category value)
         {
+            repository.AddCategory(value);
+            return Ok();
         }
 
         // PUT api/<CategoryController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpPut()]
+        public void Put([FromBody] Category value)
         {
+            repository.UpdateCategory(value);
+
         }
 
         // DELETE api/<CategoryController>/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+            repository.DeleteCategory(id);
         }
     }
 }
