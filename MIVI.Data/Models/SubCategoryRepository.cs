@@ -6,33 +6,32 @@ using System.Text;
 
 namespace MIVI.Data.Models
 {
-   public class SubCategoryRepository
+   public class  SubCategoryRepository
     {
         private readonly ApplicationDbContext _db;
         public SubCategoryRepository(ApplicationDbContext db)
         {
-            _db = db;
-
+            this._db = db;
+                
         }
         public IEnumerable<SubCategory> GetAllSubCategories()
         {
             return _db.SubCategory.ToList();
         }
-        public void AddSubCategory(SubCategory s)
+        public void AddSubCategory(SubCategory subCategory)
         {
-            _db.SubCategory.Add(s);
+            _db.SubCategory.Add(subCategory);
+            _db.SaveChangesAsync();
+        }
+        public void UpdateSubCategory(SubCategory subCategory)
+        {
+            _db.Entry<SubCategory>(subCategory).State = EntityState.Modified;
             _db.SaveChanges();
         }
-        public void UpdateSubCategory(SubCategory s)
+        public void DeleteCategory(int id)
         {
-            _db.Entry<SubCategory>(s).State = EntityState.Modified;
-            _db.SaveChanges();
-
-        }
-        public void deleteSubCategory(int id)
-        {
-            SubCategory sub = _db.SubCategory.Find(id);
-            _db.SubCategory.Remove(sub);
+            SubCategory s = _db.SubCategory.Find(id);
+            _db.SubCategory.Remove(s);
             _db.SaveChanges();
         }
     }

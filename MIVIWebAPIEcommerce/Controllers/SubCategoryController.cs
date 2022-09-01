@@ -11,48 +11,47 @@ namespace MIVIWebAPIEcommerce.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-   
-    public class SubCategoryController : ControllerBase
+    public class SubcategoryController : ControllerBase
     {
-       
         SubCategoryRepository repository = null;
-        public SubCategoryController( ApplicationDbContext db)
+        public SubcategoryController(ApplicationDbContext db)
         {
-            repository = new SubCategoryRepository(db);
+            this.repository = new SubCategoryRepository(db);
         }
-        // GET: api/<SubCategoryController>
+        // GET: api/<SubcategoryController>
         [HttpGet]
         public IEnumerable<SubCategory> Get()
         {
             return repository.GetAllSubCategories();
         }
 
-        // GET api/<SubCategoryController>/5
+        // GET api/<SubcategoryController>/5
         [HttpGet("{id}")]
         public string Get(int id)
         {
             return "value";
         }
 
-        // POST api/<SubCategoryController>
+        // POST api/<SubcategoryController>
         [HttpPost]
         public void Post([FromBody] SubCategory value)
         {
             repository.AddSubCategory(value);
         }
 
-        // PUT api/<SubCategoryController>/5
+        // PUT api/<SubcategoryController>/5
         [HttpPut()]
         public void Put([FromBody] SubCategory value)
         {
             repository.UpdateSubCategory(value);
+
         }
 
-        // DELETE api/<SubCategoryController>/5
+        // DELETE api/<SubcategoryController>/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
-            repository.deleteSubCategory(id);
+            repository.DeleteCategory(id);
         }
     }
 }
