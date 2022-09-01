@@ -50,10 +50,12 @@ namespace MIVIWebAPIEcommerce
             {
                 app.UseDeveloperExceptionPage();
             }
+            app.UseCors();
 
             app.UseHttpsRedirection();
 
             app.UseRouting();
+            
 
             app.UseAuthorization();
             app.UseSwagger();
